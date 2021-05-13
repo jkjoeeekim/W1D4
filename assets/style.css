@@ -1,0 +1,142 @@
+h1 {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+aside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 200px;
+    height: 100%;
+    background-color: rgb(226, 226, 226);
+    padding: 10px;
+}
+
+html {
+    font-size: 14px;
+}
+
+.banner {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.quick-links {
+    padding-top: 5px;
+}
+
+#ingredients {
+    padding-top: 20px;
+}
+
+ul.ingredients-list {
+    list-style-position: inside;
+    list-style-type: square;
+    font-size: 14px;
+}
+
+ul.ingredients-list li {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.new-section {
+    padding-top: 30px;
+    border-bottom: 1px solid black;
+}
+
+.shakshuka-picture {
+    padding-left: 40px;
+    padding-top: 20px;
+}
+
+.description-text {
+    font-size: 14px;
+    padding-top: 20px;
+    padding-left: 10px;
+}
+
+.content {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+ol.direction {
+    list-style-position: inside;
+    list-style-type: hiragana;
+}
+
+ol.direction li {
+    padding-top: 20px;
+    font-size: 14px;
+}
+
+#reviews {
+    font-weight: bold;
+}
+
+#review-form {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    margin-top: 20px;
+    padding-right: 30px;
+    border-right: 4px solid rgb(102, 102, 102);
+}
+
+#review-form label {
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+#review-form label p {
+    padding-bottom: 10px;
+}
+
+.button-send {
+    display: flex;
+    margin-top: 10px;
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+}
+
+.star-rating {
+    display: flex;
+    height: 100%;
+    padding-left: 7px;
+}
+
+.star-rating p:first-child {
+    padding-right: 18px;
+}
+.star-rating p:nth-child(2) {
+    padding-right: 17px;
+}
+.star-rating p:nth-child(3) {
+    padding-right: 17px;
+}
+.star-rating p:nth-child(4) {
+    padding-right: 18px;
+}
+
+#reviews {
+    padding-top: 0px;
+}
+
+#review {
+    width: 100%;
+    height: 200px;
+}
+
+.credit {
+    float: right;
+    right: 0;
+}
