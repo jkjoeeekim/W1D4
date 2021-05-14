@@ -1,27 +1,31 @@
+require 'byebug'
+
 def selected_map!(array, prc1, prc2)
-    
+    array.map! { |ele| prc1.call(ele) ? prc2.call(ele) : ele }
+    nil
 end
 
-is_even = Proc.new { |n| n.even? }
-is_positive = Proc.new { |n| n > 0 }
-square = Proc.new { |n| n * n }
-flip_sign = Proc.new { |n| -n }
+# is_even = Proc.new { |n| n.even? }
+# is_positive = Proc.new { |n| n > 0 }
+# square = Proc.new { |n| n * n }
+# flip_sign = Proc.new { |n| -n }
 
-arr_1 = [8, 5, 10, 4]
-p selected_map!(arr_1, is_even, square)     == nil
-p arr_1                                     == [64, 5, 100, 16]
+# arr_1 = [8, 5, 10, 4]
+# p selected_map!(arr_1, is_even, square)     == nil
+# p arr_1                                     == [64, 5, 100, 16]
 
-arr_2 = [-10, 4, 7, 6, -2, -9]
-p selected_map!(arr_2, is_even, flip_sign)  == nil
-p arr_2                                     == [10, -4, 7, -6, 2, -9]
+# arr_2 = [-10, 4, 7, 6, -2, -9]
+# p selected_map!(arr_2, is_even, flip_sign)  == nil
+# p arr_2                                     == [10, -4, 7, -6, 2, -9]
 
-arr_3 = [-10, 4, 7, 6, -2, -9]
-p selected_map!(arr_3, is_positive, square) == nil
-p arr_3                                     == [-10, 16, 49, 36, -2, -9]
+# arr_3 = [-10, 4, 7, 6, -2, -9]
+# p selected_map!(arr_3, is_positive, square) == nil
+# p arr_3                                     == [-10, 16, 49, 36, -2, -9]
 
 
 def chain_map(num, array)
-
+    array.each { |prc| num = prc.call(num) }
+    num
 end
 
 # add_5 = Proc.new { |n| n + 5 }
@@ -36,7 +40,14 @@ end
 
 
 def proc_suffix(str, hash)
-
+    new_sent = []
+    str.split(" ").each do |word|
+        new_word = word
+        # debugger
+        hash.each { |key, value| key.call(word) ? new_word += value : new_word = new_word }
+        new_sent << new_word
+    end
+    new_sent.join(" ")
 end
 
 # contains_a = Proc.new { |w| w.include?('a') }
@@ -67,21 +78,32 @@ end
 
 
 def proctition_platinum(array, *prc)
-
+    return_hash = Hash.new
+    words = []
+    prc.each_with_index do |prc, idx|
+        return_hash[idx + 1] = []
+        array.each do |word| 
+            if prc.call(word) && !words.include?(word)
+                return_hash[idx + 1] << word 
+                words << word
+            end
+        end
+    end
+    return_hash
 end
 
-# is_yelled = Proc.new { |s| s[-1] == '!' }
-# is_upcase = Proc.new { |s| s.upcase == s }
-# contains_a = Proc.new { |s| s.downcase.include?('a') }
-# begins_w = Proc.new { |s| s.downcase[0] == 'w' }
+is_yelled = Proc.new { |s| s[-1] == '!' }
+is_upcase = Proc.new { |s| s.upcase == s }
+contains_a = Proc.new { |s| s.downcase.include?('a') }
+begins_w = Proc.new { |s| s.downcase[0] == 'w' }
 
-# p proctition_platinum(['WHO', 'what', 'when!', 'WHERE!', 'how', 'WHY'], is_yelled, contains_a)                      == {1=>["when!", "WHERE!"], 2=>["what"]}
+p proctition_platinum(['WHO', 'what', 'when!', 'WHERE!', 'how', 'WHY'], is_yelled, contains_a)                      == {1=>["when!", "WHERE!"], 2=>["what"]}
 
-# p proctition_platinum(['WHO', 'what', 'when!', 'WHERE!', 'how', 'WHY'], is_yelled, is_upcase, contains_a)           == {1=>["when!", "WHERE!"], 2=>["WHO", "WHY"], 3=>["what"]}
+p proctition_platinum(['WHO', 'what', 'when!', 'WHERE!', 'how', 'WHY'], is_yelled, is_upcase, contains_a)           == {1=>["when!", "WHERE!"], 2=>["WHO", "WHY"], 3=>["what"]}
 
-# p proctition_platinum(['WHO', 'what', 'when!', 'WHERE!', 'how', 'WHY'], is_upcase, is_yelled, contains_a)           == {1=>["WHO", "WHERE!", "WHY"], 2=>["when!"], 3=>["what"]}
+p proctition_platinum(['WHO', 'what', 'when!', 'WHERE!', 'how', 'WHY'], is_upcase, is_yelled, contains_a)           == {1=>["WHO", "WHERE!", "WHY"], 2=>["when!"], 3=>["what"]}
 
-# p proctition_platinum(['WHO', 'what', 'when!', 'WHERE!', 'how', 'WHY'], begins_w, is_upcase, is_yelled, contains_a) == {1=>["WHO", "what", "when!", "WHERE!", "WHY"], 2=>[], 3=>[], 4=>[]}
+p proctition_platinum(['WHO', 'what', 'when!', 'WHERE!', 'how', 'WHY'], begins_w, is_upcase, is_yelled, contains_a) == {1=>["WHO", "what", "when!", "WHERE!", "WHY"], 2=>[], 3=>[], 4=>[]}
 
 
 def procipher(str, hash)
